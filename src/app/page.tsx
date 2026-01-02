@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -168,6 +168,8 @@ export default function Home() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [timeRemaining, setTimeRemaining] = useState(90 * 60) // 90 minutes in seconds
+  const [examSubmitted, setExamSubmitted] = useState(false)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)/
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Filter tryouts by level
