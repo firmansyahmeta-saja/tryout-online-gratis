@@ -48,5 +48,10 @@
 }
 
 @layer base {
-  // Kosong agar Tailwind v4 di Vercel pakai default styles
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
