@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
@@ -20,7 +20,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Clock, FileText, Users, ArrowLeft, Play, CheckCircle2, Circle, Check, X, Eye, RotateCcw, Home, Award } from 'lucide-react'
+import { Clock, FileText, Users, ArrowLeft, Play, CheckCircle2, Circle, Check, X, Eye, RotateCcw, Home, Award, AlertCircle } from 'lucide-react'
 
 // Types
 type Question = {
@@ -37,7 +37,7 @@ type Question = {
   explanationImage?: string
 }
 
-// Mock data - akan diganti dengan API call
+// Mock data
 const mockTryouts = [
   {
     id: '1',
@@ -73,7 +73,6 @@ const mockTryouts = [
   }
 ]
 
-// Mock questions untuk setiap tryout
 const mockQuestions: Record<string, Question[]> = {
   '1': [
     {
@@ -167,9 +166,8 @@ export default function Home() {
   // Exam state
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [timeRemaining, setTimeRemaining] = useState(90 * 60) // 90 minutes in seconds
+  const [timeRemaining, setTimeRemaining] = useState(90 * 60)
   const [examSubmitted, setExamSubmitted] = useState(false)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)/
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Filter tryouts by level
