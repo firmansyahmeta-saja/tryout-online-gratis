@@ -24,7 +24,7 @@
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
 }
- 
+
 .dark {
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
@@ -46,12 +46,7 @@
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
 }
- 
+
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+  // Kosong agar Tailwind v4 di Vercel pakai default styles
 }
