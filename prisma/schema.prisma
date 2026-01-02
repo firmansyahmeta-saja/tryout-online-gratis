@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,20 +10,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Tryout {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  level       String   // SD, SMP, SMA, UTBK
+  duration    Int      // durasi dalam menit
+  questions   Question[]
+  results     UserResult[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Question {
+  id                String   @id @default(cuid())
+  tryoutId          String
+  tryout            Tryout   @relation(fields: [tryoutId], references: [id], onDelete: Cascade)
+  questionNumber    Int      // nomor soal
+  questionText      String
+  questionImage     String?  // URL gambar soal (opsional)
+  optionA           String
+  optionB           String
+  optionC           String
+  optionD           String
+  correctAnswer     String   // A, B, C, atau D
+  explanationText   String   // teks pembahasan
+  explanationImage  String?  // URL gambar pembahasan (opsional)
+  createdAt         DateTime @default(now())
+}
+
+model UserResult {
+  id            String   @id @default(cuid())
+  tryoutId      String
+  tryout        Tryout   @relation(fields: [tryoutId], references: [id], onDelete: Cascade)
+  userName      String
+  userSchool    String
+  score         Int
+  totalCorrect  Int
+  totalWrong    Int
+  totalEmpty    Int
+  answers       String   // JSON: { questionId: answer }
+  completedAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
 }
